@@ -1,60 +1,13 @@
-const router = require('koa-router')()
+const Router = require('koa-router')
+const router = new Router({prefix:'/users'})
 
-router.prefix('/users')
 
-import {login,register} from '../controller/user'
-// 获取用户信息
-router.get('/getUserInfo', loginCheck, async (ctx, next) => {
-  ctx.body = {
-    errno: 0,
-    data: ctx.session.userInfo
-  }
-})
-// 登录
-router.post('/login', async (ctx, next) => {
-  // 获取登录信息
-  const { username, password } = ctx.request.body
-  // 验证登录
-  const res = await login(username, password)
-  if (res) {
-    // 登录成功
-
-    // 设置 session
-    ctx.session.userInfo = {
-      username
-    }
-
-    // 返回信息
-    ctx.body = {
-      errno: 0
-    }
-  } else {
-    // 登陆失败
-    ctx.body = {
-      errno: -1,
-      message: '登录验证失败'
-    }
-  }
-})
-
+const {register,login} = require('../controller/users.controller')
+const {userValidator,verifyUser,cryptPassword,verifyLogin} = require('../middleware/user.middleeware')
 // 注册
-router.post('/register', async (ctx, next) => {
-  // 获取注册信息
-  const userInfo = ctx.request.body
-  // 提交注册
-  try {
-    const newUser = await register(userInfo)
-    ctx.body = {
-      errno: 0,
-      data: newUser
-    }
-  } catch (err) {
-    console.error('注册失败', err)
-    ctx.body = {
-      errno: -1,
-      message: "注册失败"
-    }
-  }
-  
-})
+
+router.post('/register', userValidator,verifyUser,cryptPassword,register)
+//登录
+router.post('/login',userValidator,verifyLogin,login)
+
 module.exports = router
