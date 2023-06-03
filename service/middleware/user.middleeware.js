@@ -44,6 +44,7 @@ const cryptPassword = async (ctx,next)=>{
     // hash保存的是密文
     const hash = bcrypt.hashSync(password,salt)
     ctx.request.body.password = hash
+    console.log('password为:',hash)
     await next()
 }
  /**
@@ -69,7 +70,6 @@ const verifyLogin= async (ctx,next)=>{
       console.error(error)
       ctx.app.emit('error',userLoginError,ctx)
     }
-  
     await next()
 }
 module.exports = {

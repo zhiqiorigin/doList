@@ -16,6 +16,7 @@ class UserService{
       return res
  }
  /**
+  * 获取个人用户信息
    * @param {String} userInfo._id [用户id]
    * @param {String} userInfo.username [用户名]
    * @param {String} userInfo.password [密码]
@@ -35,6 +36,27 @@ class UserService{
    console.log(userInfo)
    return userInfo? userInfo : null
    }
+ /**
+  * 根据id修改用户信息
+   * @param {String} userInfo._id [用户id]
+   * @param {String} userInfo.username [用户名]
+   * @param {String} userInfo.password [密码]
+   * @param {String} userInfo.role [用户权限]
+   * @returns {Object}  [修改用户信息]
+   */
+  async updateById({id,username,password,role}){
+    let _id = id
+    const newUserInfo = {}
+    username && Object.assign(newUserInfo,{ username })
+    password && Object.assign(newUserInfo,{ password })
+    role && Object.assign(newUserInfo,{ role })
+
+    User.findByIdAndUpdate(_id, newUserInfo).then(rel=>{
+      return rel
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
 }
 
 module.exports = new UserService()
