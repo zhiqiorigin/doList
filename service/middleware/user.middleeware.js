@@ -28,7 +28,7 @@ const verifyUser = async (ctx,next)=>{
         if(await getUserInfo({ username })){
           console.error('用户已存在',ctx.request.body)
           ctx.app.emit('error',userAlreadyExisted,ctx)
-          return 
+          return
         }
       }
       await next()
@@ -54,26 +54,22 @@ const cryptPassword = async (ctx,next)=>{
 const verifyLogin= async (ctx,next)=>{
   const {username,password} = ctx.request.body
   // 判断用户是否存在，不存在就报错
- try{
-     const res = await getUserInfo({ username })
-     if(!res){
-      ctx.status = 400
-      //用户不存在
-      ctx.body = userDoesNotExist
-      return 
-     }
-  }catch(err){
-    console.error(err)
-    ctx.status = 400
-    ctx.body = userLoginError
-  }
-  // 密码是否匹配
-  // if(password){
-  //   ctx.status = 400
-  //   //用户不存在
-  //   ctx.body = passwordError
-  //   return 
-  // } 
+  try{
+      const res = await getUserInfo({ username })
+      if(res==null){
+        console.error('用户不存在',ctx.request.body)
+        ctx.app.emit('error',userDoesNotExist,ctx)
+        return 
+      }
+      if(!bcrypt.compareSync(password,res.password)){
+        ctx.app.emit('error',passwordError,ctx)
+        return 
+      }
+    }catch(error){
+      console.error(error)
+      ctx.app.emit('error',userLoginError,ctx)
+    }
+  
     await next()
 }
 module.exports = {

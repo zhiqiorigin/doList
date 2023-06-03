@@ -40,8 +40,8 @@ const UserSchema = mongoose.Schema({
     default: 0 // 0 保密，1 男，2 女
   },
   role:{
-    type:String,
-    defalut:'用户'
+    type:Number,
+    defalut:1 // 0管理员，1用户
   },
   avatar:{
     type:String,

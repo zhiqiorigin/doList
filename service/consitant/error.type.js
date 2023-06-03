@@ -28,6 +28,11 @@ module.exports = {
         code:'10006',
         message:'密码输入错误',
         result:''
-    }
+    },
+    LoginError:{
+        code:'10007',
+        message:'用户登录错误',
+        result:''
+    },
 
 }

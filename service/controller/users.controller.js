@@ -1,6 +1,8 @@
 // user controller
-const { createUser } = require('../service/users.service')
-const { registerError} = require('../consitant/error.type')
+const jwt = require('jsonwebtoken')
+const JWT_SECRETE = 'JWT'
+const { createUser,getUserInfo } = require('../service/users.service')
+const { registerError,LoginError} = require('../consitant/error.type')
 class UserController{
   /**
    * 注册新用户
@@ -28,7 +30,6 @@ class UserController{
       console.log(err)
       ctx.app.emit('error',registerError,ctx)
     }
-    
   }
 
   /**
@@ -37,9 +38,24 @@ class UserController{
    * @yield {[type]}   [description]
    */
   async login (ctx,next) {
-    const {username,password} = ctx.request.body
-
-    ctx.body = `${username}欢迎回来`
+    const {username} = ctx.request.body
+    try{
+      // 1.获取用户信息（在token的playload包含id，username,role）
+      const userInfo = await getUserInfo({ username })
+      const {_id} = userInfo
+      
+      // 2.
+      ctx.body = {
+        code:200,
+        message:'用户登录成功',
+        result:{
+          token:jwt.sign({id:_id,username:username},JWT_SECRETE,{expiresIn:'1d'})
+        }
+      }
+    }catch(error){
+      console.error('用户登录失败',error)
+      ctx.app.emit('error',LoginError,ctx)
+    }
   }
 }
 module.exports = new UserController()
