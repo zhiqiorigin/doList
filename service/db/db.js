@@ -6,7 +6,6 @@ const dbName = 'doList'
 
 // mongoose.set('useCreateIndex', true)
 // mongoose.set('useFindAndModify', false)
-
 // 连接 mongodb 并进入指定 database
 mongoose.connect(url + '/' + dbName)
 

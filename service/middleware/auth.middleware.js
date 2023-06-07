@@ -6,8 +6,6 @@ const { tokenExpiredError,invalidTokenError } = require('../consitant/error.type
     // 获取token,做用户授权操作
     const {authorization} = ctx.request.header
     const token = authorization.replace('Bearer ','')
-    console.log(token)
-    console.log(JWT_SECRETE)
     try{
        const userInfo = jwt.verify(token,JWT_SECRETE)//包含id,username
        console.log(userInfo)
@@ -22,7 +20,7 @@ const { tokenExpiredError,invalidTokenError } = require('../consitant/error.type
                 return ctx.app.emit('error',invalidTokenError,ctx)
         }
     }
-    next()
+    await next();
 }
 module.exports = {
     auth

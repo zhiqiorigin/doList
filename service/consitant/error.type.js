@@ -48,6 +48,16 @@ module.exports = {
         code:'10103',
         message:'密码修改失败',
         result:''
+    },
+    getAllPlansError:{
+        code:'10201',
+        message:'获取所有计划失败',
+        result:''
+    },
+    addPlansError:{
+        code:'10202',
+        message:'添加计划失败',
+        result:''
     }
 
 }

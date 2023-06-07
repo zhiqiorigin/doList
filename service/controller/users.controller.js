@@ -63,19 +63,14 @@ class UserController{
    * @yield {[type]}   [description]
    */
     async updatePassword (ctx,next) {
-      /**
-       * 1.获取数据
-       * 2.操作数据库
-       * 3.返回结果
-       */
       try{
         // 1.获取用户密码
         console.log(ctx.state.userInfo)
-        const {id} = ctx.state.userInfo
+        const {id,username} = ctx.state.userInfo
         const password = ctx.request.body.password;
         console.log(id, password)
-        const res = await updateById({id,password})
-
+        const res = await updateById({id,username,password})
+        
         console.log(res)
         ctx.body = {
           code:200,
