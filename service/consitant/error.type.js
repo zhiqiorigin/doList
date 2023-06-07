@@ -58,6 +58,16 @@ module.exports = {
         code:'10202',
         message:'添加计划失败',
         result:''
+    },
+    updatePlansError:{
+        code:'10203',
+        message:'更新计划失败',
+        result:''
+    },
+    deletePlansError:{
+        code:'10204',
+        message:'删除计划失败',
+        result:''
     }
 
 }

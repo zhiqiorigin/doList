@@ -1,7 +1,7 @@
 // user controller
 
-const {addPlanInfo,getAllPlanInfo} = require('../service/plan.service')
-const { getAllPlansError,addPlansError} = require('../consitant/error.type')
+const {addPlanInfo,getAllPlanInfo,deletePlanInfo} = require('../service/plan.service')
+const { getAllPlansError,addPlansError,updatePlansError,deletePlansError} = require('../consitant/error.type')
 
 class PlanController{
   /**
@@ -72,18 +72,18 @@ class PlanController{
      * 3.返回结果
      */
   try{
-    const {id} = ctx.request.body
-   
+    const { _id }= ctx.request.body
+    // 操作数据库
+    const res = await deletePlanInfo(_id)
     // 操作数据库
     ctx.body={
       code:200,
       message:'删除成果',
-      data:{
-          _id:id,
-      }
+      data:res
   }
   }catch(err){
     console.error(err)
+    ctx.app.emit('error',deletePlansError,ctx)
   }
 }
 /**
@@ -99,7 +99,7 @@ async updatePlan (ctx,next) {
    * 3.返回结果
    */
 try{
-
+  
   // 操作数据库
   ctx.body={
     code:200,
@@ -109,6 +109,7 @@ try{
 }
 }catch(err){
   console.error(err)
+  ctx.app.emit('error',updatePlansError,ctx)
 }
 }
 }

@@ -3,34 +3,34 @@ module.exports = (error,ctx) => {
     switch(error.code){
         case '10001':
             console.log(error.code)
-            status=400
+            status=200
             break;
         case '10002':
-            status=409
+            status=209
             break;
         case '10003':
-            status=400
+            status=200
             break;
         case '10004':
-            status=401
+            status=20
             break;
         case '10005':
-            status=400
+            status=200
             break;
         case '10006':
-            status=402
+            status=200
             break;
         case '10007':
-            status=402
+            status=200
             break;
         case '10103':
-            status=402
+            status=200
             break;
         case '10201':
-            status=403
+            status=200
             break;
         case '10202':
-            status =403
+            status =200
             break;
         default:
             status=500

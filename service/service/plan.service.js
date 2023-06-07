@@ -32,14 +32,16 @@ class PlanService{
     return res
 }
  /**
-    * 操作plan添加
-   * @param {string} username [用户名]
-   * @param {Object} password  [密码]
+    * 操作plan删除
+   * @param {string} _id [计划id]
    * @returns {Object}  [用户信息]
    */
- async deletePlanInfo(user_id){
-    // 数据库操作语句
-
+ async deletePlanInfo(_id){
+    const whereObj = {}
+    _id && Object.assign(whereObj, {_id})
+    console.log(whereObj)
+    const res = await Plan.deleteOne(whereObj)
+    console.log(res)    
     return res
 }
 }
