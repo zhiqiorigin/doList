@@ -1,6 +1,6 @@
 // user controller
 
-const {addPlanInfo,getAllPlanInfo,deletePlanInfo} = require('../service/plan.service')
+const {addPlanInfo,getAllPlanInfo,deletePlanInfo,updatePlanInfo} = require('../service/plan.service')
 const { getAllPlansError,addPlansError,updatePlansError,deletePlansError} = require('../consitant/error.type')
 
 class PlanController{
@@ -99,13 +99,13 @@ async updatePlan (ctx,next) {
    * 3.返回结果
    */
 try{
-  
+  const {_id,title,description,sectionName,children,date,done} = ctx.request.body
+  const res = await updatePlanInfo({_id,title,description,sectionName,children,date,done})
   // 操作数据库
   ctx.body={
     code:200,
-    message:'修改成果',
-    data:{
-    }
+    message:'修改成功',
+    data:res
 }
 }catch(err){
   console.error(err)

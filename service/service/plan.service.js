@@ -43,7 +43,28 @@ class PlanService{
     const res = await Plan.deleteOne(whereObj)
     console.log(res)    
     return res
-}
+    }
+ /**
+    * plan更新
+   * @param {Object} planInfo [计划对象]
+   * @returns {Object}  [用户信息]
+   */
+ async updatePlanInfo({_id,title,description,sectionName,children,date,done}){
+    
+    const newPlanInfo = {}
+    title && Object.assign(newPlanInfo,{ title })
+    description && Object.assign(newPlanInfo,{ description })
+    sectionName && Object.assign(newPlanInfo,{ sectionName })
+    children && Object.assign(newPlanInfo,{ children })
+    date && Object.assign(newPlanInfo,{ date })
+    done && Object.assign(newPlanInfo,{ done })
+
+    Plan.findByIdAndUpdate(_id, newPlanInfo).then(rel=>{
+      return rel
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
 }
 
 module.exports = new PlanService()
