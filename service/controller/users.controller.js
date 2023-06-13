@@ -49,7 +49,7 @@ class UserController{
         code:200,
         message:'用户登录成功',
         result:{
-          token:jwt.sign({id:_id,username:username},JWT_SECRETE,{expiresIn:'1d'})
+          token:jwt.sign({id:_id,username:username},JWT_SECRETE,{expiresIn:'5d'})
         }
       }
     }catch(error){

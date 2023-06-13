@@ -88,6 +88,25 @@ module.exports = {
         code:'10208',
         message:'修改计划分类失败',
         result:''
+    },
+    addHabitError:{
+        code:'10301',
+        message:'添加习惯失败',
+        result:''
+    },
+    getHabitError:{
+        code:'10302',
+        message:'获取习惯失败',
+        result:''
+    },
+    deleteHabitError:{
+        code:'10303',
+        message:'删除习惯失败',
+        result:''
+    },
+    updateHabitError:{
+        code:'10304',
+        message:'修改习惯失败',
+        result:''
     }
-
 }

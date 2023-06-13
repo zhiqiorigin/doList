@@ -1,39 +1,78 @@
-module.exports = (error,ctx) => {
+module.exports = (error, ctx) => {
     let status = 500
-    switch(error.code){
+    switch (error.code) {
         case '10001':
             console.log(error.code)
-            status=200
+            status = 200
             break;
         case '10002':
-            status=209
+            status = 209
             break;
         case '10003':
-            status=200
+            status = 200
             break;
         case '10004':
-            status=20
+            status = 200
             break;
         case '10005':
-            status=200
+            status = 200
             break;
         case '10006':
-            status=200
+            status = 200
             break;
         case '10007':
-            status=200
+            status = 200
+            break;
+        case '10101':
+            status = 200
+            break;
+        case '10102':
+            status = 200
             break;
         case '10103':
-            status=200
+            status = 200
             break;
         case '10201':
-            status=200
+            status = 200
             break;
         case '10202':
-            status =200
+            status = 200
+            break;
+        case '10203':
+            status = 200
+            break;
+        case '10204':
+            status = 200
+            break;
+        case '10205':
+            status = 200
+            break;
+        case '10206':
+            status = 200
+            break;
+        case '10207':
+            status = 200
+            break;
+        case '10208':
+            status = 200
+            break;
+        case '10301':
+            status = 200
+            break;
+        case '10302':
+            status = 200
+            break;
+        case '10303':
+            status = 200
+            break;
+        case '10304':
+            status = 200
+            break;
+        case '10305':
+            status = 200
             break;
         default:
-            status=500
+            status = 500
     }
     ctx.status = status
     ctx.body = error

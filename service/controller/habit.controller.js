@@ -1,41 +1,37 @@
-// user controller
+// habit controller
 
-const {addPlanInfo,getAllPlanInfo,deletePlanInfo,updatePlanInfo} = require('../service/plan.service')
+const {getAllHabitInfo,addHabitInfo,deleteHabitInfo,updateHabitInfo} = require('../service/habit.service')
+const { addHabitError,getHabitError,deleteHabitError,updateHabitError} = require('../consitant/error.type')
 
 class HabitController{
   /**
-   * 获得习惯
+   * 1 获得习惯
    * @param {Function} next          [description]
    * @param {Object} ctx          [description]
    * @yield {[type]}   [description]
    */
   async getAllHabit (ctx,next) {
-    /**
-     * 1.获取数据
-     * 2.操作数据库
-     * 3.返回结果
-     */
   try{
     console.log(ctx.state.userInfo)//获取用户id
     const {id} = ctx.state.userInfo
     const user_id = id
     // 操作数据库
-    const res = await getAllPlanInfo(user_id)
+    const res = await getAllHabitInfo(user_id)
 
     ctx.body={
       code:200,
       message:'获取成功',
       data:{
-          Plans:res
+          Habits:res
       }
     }
   }catch(err){
     console.log(err)
-    ctx.app.emit('error',getAllPlansError,ctx)
+    ctx.app.emit('error',getHabitError,ctx)
   }
 }
   /**
-   * 添加计划
+   * 2 添加习惯
    * @param {Function} next          [description]
    * @param {Object} ctx          [description]
    * @yield {[type]}   [description]
@@ -44,10 +40,10 @@ class HabitController{
     try{
       console.log(ctx.state.userInfo)//获取用户id
       const {id} = ctx.state.userInfo
-      const {planInfo} = ctx.request.body;
-      id && Object.assign(planInfo,{ user_id:id })
-      console.log(planInfo)
-      const res = await addPlanInfo(planInfo)
+      const {habitInfo} = ctx.request.body;
+      id && Object.assign(habitInfo,{ user_id:id })
+      console.log(habitInfo)
+      const res = await addHabitInfo(habitInfo)
       ctx.body={
         code:200,
         message:'添加成功',
@@ -55,11 +51,11 @@ class HabitController{
       }
     }catch(err){
       console.log(err)
-      ctx.app.emit('error',addPlansError,ctx)
+      ctx.app.emit('error',addHabitError,ctx)
     }
   }
   /**
-   * 删除计划
+   *3  删除计划
    * @param {Function} next          [description]
    * @param {Object} ctx          [description]
    * @yield {[type]}   [description]
@@ -73,7 +69,7 @@ class HabitController{
   try{
     const { _id }= ctx.request.body
     // 操作数据库
-    const res = await deletePlanInfo(_id)
+    const res = await deleteHabitInfo(_id)
     // 操作数据库
     ctx.body={
       code:200,
@@ -82,24 +78,23 @@ class HabitController{
   }
   }catch(err){
     console.error(err)
-    ctx.app.emit('error',deletePlansError,ctx)
+    ctx.app.emit('error',deleteHabitError,ctx)
   }
 }
 /**
-   * 修改计划
+   * 4 修改计划
    * @param {Function} next          [description]
    * @param {Object} ctx          [description]
    * @yield {[type]}   [description]
    */
 async updateHabit (ctx,next) {
-  /**
-   * 1.获取数据
-   * 2.操作数据库
-   * 3.返回结果
-   */
+
 try{
-  const {_id,title,description,sectionName,children,date,done} = ctx.request.body
-  const res = await updatePlanInfo({_id,title,description,sectionName,children,date,done})
+  console.log(ctx.request.body)
+  const {habitInfo} = ctx.request.body
+  const {_id,habitName,habitIcon,habitSection,longTime,startDate,reminder,doHabitDays,done} = habitInfo
+  console.log(_id)
+  const res = await updateHabitInfo({_id,habitName,habitIcon,habitSection,longTime,startDate,reminder,doHabitDays,done})
   // 操作数据库
   ctx.body={
     code:200,
@@ -108,7 +103,7 @@ try{
 }
 }catch(err){
   console.error(err)
-  ctx.app.emit('error',updatePlansError,ctx)
+  ctx.app.emit('error',updateHabitError,ctx)
 }
 }
 }

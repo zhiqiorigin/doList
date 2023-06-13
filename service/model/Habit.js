@@ -11,11 +11,11 @@ const mongoose = require('../db/db')
  * 除了定义结构外，还定义文档的实例方法，静态模型方法，复合索引，中间件等
  * @type {mongoose}
  */
-const UserSchema = mongoose.Schema({
-    user_id:{
-        type:ObjectId,
-        required:true
-    },
+const HabitSchema = mongoose.Schema({
+  user_id:{
+    type:String,
+    required:true
+  },
   habitName: {
     type: String,
     require: true
@@ -41,8 +41,8 @@ const UserSchema = mongoose.Schema({
     default: new Date()
   },
   doHabitDays: {
-    type: Boolean,
-    default: true
+    type: Number,
+    default: 0
   },//持续天数，已经做了多少天了
   done: {
     type: Boolean,
@@ -51,6 +51,6 @@ const UserSchema = mongoose.Schema({
 }, { timestamps: true })
 
 // 生成模型
-const User = mongoose.model('User', UserSchema)
+const Habit = mongoose.model('Habit', HabitSchema)
 
-module.exports = User
+module.exports = Habit
