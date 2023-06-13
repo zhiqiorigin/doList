@@ -108,5 +108,25 @@ module.exports = {
         code:'10304',
         message:'修改习惯失败',
         result:''
+    },
+    addCourseError:{
+        code:'10401',
+        message:'添加课程失败',
+        result:''
+    },
+    getCourseError:{
+        code:'10302',
+        message:'获取课程失败',
+        result:''
+    },
+    deleteCourseError:{
+        code:'10303',
+        message:'删除课程失败',
+        result:''
+    },
+    updateCourseError:{
+        code:'10304',
+        message:'修改课程失败',
+        result:''
     }
 }

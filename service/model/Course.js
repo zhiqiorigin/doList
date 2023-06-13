@@ -12,19 +12,24 @@ const mongoose = require('../db/db')
  */
 const CourseSchema = mongoose.Schema({
     user_id:{
-        type:ObjectId,
+        type:String,
         required:true
     },//用户id
-    weekDay: {
-        type: String
-    },//持续周数（1-17）
+    weekStart: {
+        type: Number,
+        default:1
+    },
+    weekEnd: {
+        type: Number,
+        default:17
+    },
     week:{
         type: String
-    },//周三
+    },//星期几上课
     dayTime: {
         type: String,
         require: true
-    },//上课时间
+    },//上课具体时间
     compus: {
         type: String,
         require: true

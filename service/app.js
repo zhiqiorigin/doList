@@ -10,6 +10,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const plan = require('./routes/plan')
 const habit = require('./routes/habit')
+const course = require('./routes/course')
 // error handler
 onerror(app)
 
@@ -38,6 +39,8 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(plan.routes(), plan.allowedMethods())
 app.use(habit.routes(), habit.allowedMethods())
+app.use(course.routes(), course.allowedMethods())
+
 // error-handling
 const errorHandle = require('./consitant/error.header')
 app.on('error',errorHandle)
