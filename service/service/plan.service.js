@@ -1,5 +1,6 @@
 // 操作数据库
 const Plan = require('../model/Plan')
+const PlanSection = require('../model/PlanSection')
 class PlanService{
   /**
    * 获取所有用户计划
@@ -65,6 +66,62 @@ class PlanService{
       console.log(err)
     })
   }
+
+ /**
+    * 增加plansection
+   * @param {Object} planInfo [section对象]
+   * @returns {Object}  [用户信息]
+   */
+ async addPlanSection(sectionInfo){
+  // 数据库操作语句
+  var planSection = new PlanSection(sectionInfo)
+  const res = await planSection.save()
+  return res
+}
+    /**
+   * 获取所有用户计划分类
+   * @param {planInfo} username [用户名]
+   * @param {Object} password  [密码]
+   * @returns {Object}  [用户信息]
+   */
+    async getAllPlanSection(user_id){
+      // 数据库操作语句
+      const whereObj = {}
+      user_id && Object.assign(whereObj,{ user_id })
+
+      const query = PlanSection.where(whereObj);
+      const res = await query.find()
+      console.log(res)
+      return res
+  }
+   /**
+    * 操作plansection删除
+   * @param {string} _id [计划id]
+   * @returns {Object}  [用户信息]
+   */
+ async deletePlansection(_id){
+  const whereObj = {}
+  _id && Object.assign(whereObj, {_id})
+  console.log(whereObj)
+  const res = await PlanSection.deleteOne(whereObj)
+  console.log(res)    
+  return res
+  }
+   /**
+    * plansection更新
+   * @param {Object} plansection [计划对象]
+   * @returns {Object}  [用户信息]
+   */
+ async updatePlansection({_id,sectionName}){
+    
+  const newPlanInfo = {}
+  sectionName && Object.assign(newPlanInfo,{ sectionName })
+  PlanSection.findByIdAndUpdate(_id, newPlanInfo).then(res=>{
+    return res
+  }).catch(err=>{
+    console.log(err)
+  })
+}
 }
 
 module.exports = new PlanService()

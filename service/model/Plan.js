@@ -29,7 +29,7 @@ const PlanSchema = mongoose.Schema({
     sectionName:{
         type: String,
         default:'MyList'
-    },//计划属于哪个模块（学习，生活,默认为MyList）
+    },//计划属于哪个模块（学习，生活,默认为MyList)
     date: {
         type: Date,
         default: new Date()

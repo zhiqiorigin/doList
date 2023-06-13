@@ -14,6 +14,10 @@ const mongoose = require('../db/db')
 const PlanSectionSchema = mongoose.Schema({
     sectionName:{
         type:String
+    },
+    user_id:{
+      type: String,
+      require: true
     }
 }, { timestamps: true })
 

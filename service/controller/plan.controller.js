@@ -1,11 +1,12 @@
 // user controller
 
-const {addPlanInfo,getAllPlanInfo,deletePlanInfo,updatePlanInfo} = require('../service/plan.service')
-const { getAllPlansError,addPlansError,updatePlansError,deletePlansError} = require('../consitant/error.type')
+const {updatePlansection,deletePlansection,getAllPlanSection,addPlansection,getAllPlanInfo,deletePlanInfo,updatePlanInfo,addPlanSection} = require('../service/plan.service')
+const { updatePlansSectionError,deletePlansSectionError,getPlansSectionError,addPlansSectionError,getAllPlansError,addPlansError,updatePlansError,deletePlansError} = require('../consitant/error.type')
 
 class PlanController{
+
   /**
-   * 获得计划
+   * 1 获得计划
    * @param {Function} next          [description]
    * @param {Object} ctx          [description]
    * @yield {[type]}   [description]
@@ -36,7 +37,7 @@ class PlanController{
   }
 }
   /**
-   * 添加计划
+   * 2 添加计划
    * @param {Function} next          [description]
    * @param {Object} ctx          [description]
    * @yield {[type]}   [description]
@@ -60,7 +61,7 @@ class PlanController{
     }
   }
   /**
-   * 删除计划
+   * 3 删除计划
    * @param {Function} next          [description]
    * @param {Object} ctx          [description]
    * @yield {[type]}   [description]
@@ -87,7 +88,7 @@ class PlanController{
   }
 }
 /**
-   * 修改计划
+   * 4 修改计划
    * @param {Function} next          [description]
    * @param {Object} ctx          [description]
    * @yield {[type]}   [description]
@@ -110,6 +111,110 @@ try{
 }catch(err){
   console.error(err)
   ctx.app.emit('error',updatePlansError,ctx)
+}
+}
+/**
+   * 5 获得计划分类
+   * @param {Function} next          [description]
+   * @param {Object} ctx          [description]
+   * @yield {[type]}   [description]
+   */
+  /**
+   * 获得计划
+   * @param {Function} next          [description]
+   * @param {Object} ctx          [description]
+   * @yield {[type]}   [description]
+   */
+  async getPlanSection (ctx,next) {
+    try{
+      console.log(ctx.state.userInfo)//获取用户id
+      const {id} = ctx.state.userInfo
+      const user_id = id
+      // 操作数据库
+      const res = await getAllPlanSection(user_id)
+  
+      ctx.body={
+        code:200,
+        message:'获取成功',
+        data:{
+            planSection:res
+        }
+      }
+    }catch(err){
+      console.log(err)
+      ctx.app.emit('error',getPlansSectionError,ctx)
+    }
+}
+/**
+   * 6 增加计划分类
+   * @param {Function} next          [description]
+   * @param {Object} ctx          [description]
+   * @yield {[type]}   [description]
+   */
+async addPlanSection (ctx,next) {
+  try{
+    console.log(ctx.state.userInfo)//获取用户id
+    const {id} = ctx.state.userInfo
+    const {sectionInfo} = ctx.request.body;
+    id && Object.assign(sectionInfo,{ user_id:id })
+    console.log(sectionInfo)
+    const res = await addPlansection(sectionInfo)
+    ctx.body={
+      code:200,
+      message:'添加成功',
+      data:res
+    }
+  }catch(err){
+    console.log(err)
+    ctx.app.emit('error',addPlansSectionError,ctx)
+  }
+}
+/**
+   * 删除计划列表
+   * @param {Function} next          [description]
+   * @param {Object} ctx          [description]
+   * @yield {[type]}   [description]
+   */
+async deletePlanSection (ctx,next) {
+  try{
+    const { _id }= ctx.request.body
+    // 操作数据库
+    const res = await deletePlansection(_id)
+    // 操作数据库
+    ctx.body={
+      code:200,
+      message:'删除成功',
+      data:res
+  }
+  }catch(err){
+    console.error(err)
+    ctx.app.emit('error',deletePlansSectionError,ctx)
+  }
+}
+/**
+   * 修改计划
+   * @param {Function} next          [description]
+   * @param {Object} ctx          [description]
+   * @yield {[type]}   [description]
+   */
+async updatePlanSection (ctx,next) {
+  /**
+   * 1.获取数据
+   * 2.操作数据库
+   * 3.返回结果
+   */
+  try{
+    const {_id,sectionName} = ctx.request.body
+    const res = await updatePlansection({_id,sectionName})
+    // 操作数据库
+    ctx.body={
+      code:200,
+      message:'修改成功',
+      data:res
+  }
+  }catch(err){
+  console.error(err)
+  ctx.app.emit('error',updatePlansSectionError,ctx)
 }
 }
 }

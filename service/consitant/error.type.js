@@ -68,6 +68,26 @@ module.exports = {
         code:'10204',
         message:'删除计划失败',
         result:''
+    },
+    addPlansSectionError:{
+        code:'10205',
+        message:'添加计划分类失败',
+        result:''
+    },
+    getPlansSectionError:{
+        code:'10206',
+        message:'获取计划分类失败',
+        result:''
+    },
+    deletePlansSectionError:{
+        code:'10207',
+        message:'删除计划分类失败',
+        result:''
+    },
+    updatePlansSectionError:{
+        code:'10208',
+        message:'修改计划分类失败',
+        result:''
     }
 
 }
