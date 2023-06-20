@@ -24,7 +24,7 @@ const CourseSchema = mongoose.Schema({
         default:17
     },
     week:{
-        type: String
+        type: Number
     },//星期几上课
     dayTime: {
         type: String,
@@ -37,6 +37,10 @@ const CourseSchema = mongoose.Schema({
     className: {
         type: String
     },//课程名称
+    classplace:{
+        type: String,
+        require: true
+    },//上课具体地点
     teacher:{
         type: String,
         require: true

@@ -72,7 +72,7 @@ class PlanService{
    * @param {Object} planInfo [section对象]
    * @returns {Object}  [用户信息]
    */
- async addPlanSection(sectionInfo){
+ async addPlansection(sectionInfo){
   // 数据库操作语句
   var planSection = new PlanSection(sectionInfo)
   const res = await planSection.save()

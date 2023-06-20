@@ -46,7 +46,7 @@ class HaibtService{
    * @param {Object} planInfo [计划对象]
    * @returns {Object}  [用户信息]
    */
- async updateCourseInfo({_id,compus,weekStart,weekEnd,week,dayTime,className,teacher}){
+ async updateCourseInfo({_id,compus,weekStart,weekEnd,week,classplace,dayTime,className,teacher}){
     
     const newCourseInfo = {}
     compus && Object.assign(newCourseInfo,{ compus })
@@ -56,7 +56,7 @@ class HaibtService{
     dayTime && Object.assign(newCourseInfo,{ dayTime })
     className && Object.assign(newCourseInfo,{ className })
     teacher && Object.assign(newCourseInfo,{ teacher })
-
+    classplace && Object.assign(newCourseInfo,{ classplace })
     Course.findByIdAndUpdate(_id, newCourseInfo).then(rel=>{
       return rel
     }).catch(err=>{

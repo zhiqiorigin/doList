@@ -86,9 +86,9 @@ async updateCourse (ctx,next) {
 try{
   console.log(ctx.request.body)
   const {courseInfo} = ctx.request.body
-  const {_id,compus,weekStart,weekEnd,week,dayTime,className,teacher} = courseInfo
+  const {_id,compus,weekStart,weekEnd,week,dayTime,className,classplace,teacher} = courseInfo
   console.log(_id)
-  const res = await updateCourseInfo({_id,compus,weekStart,weekEnd,week,dayTime,className,teacher})
+  const res = await updateCourseInfo({_id,compus,weekStart,weekEnd,classplace,week,dayTime,className,teacher})
   // 操作数据库
   ctx.body={
     code:200,
